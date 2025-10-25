@@ -3,6 +3,7 @@ import database as db
 import models
 import payments as p
 
+
 app = FastAPI()
 
 def get_payment_or_404(payment_id: str):
@@ -24,12 +25,21 @@ async def register_payment(payment_id: str, amount: float, payment_method: str):
     if payment_id in all_payments:
         raise HTTPException(status_code=409, detail="Payment ID already exists")
 
-    new_payment = {
+    # candidato sin status
+    candidate = {
         models.AMOUNT: amount,
-        models.PAYMENT_METHOD: payment_method,
-        models.STATUS: models.STATUS_REGISTRADO
+        models.PAYMENT_METHOD: payment_method.strip(),
     }
-    
+
+    # validar contra el estado actual
+    is_valid = p.validate_payment(candidate, all_payments)
+
+    # asignar status según validación
+    new_payment = {
+        **candidate,
+        models.STATUS: models.STATUS_REGISTRADO if is_valid else models.STATUS_FALLIDO
+    }
+
     db.save_payment_data(payment_id, new_payment)
     return new_payment
 
