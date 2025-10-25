@@ -9,11 +9,11 @@ def validate_payment(payment: dict, all_payments: dict) -> bool:
     amount = payment[models.AMOUNT]
 
     if method == models.CREDIT_CARD:
-        # [cite_start]Condición 1: Monto [cite: 42]
+        # Condición 1: Monto 
         if amount >= 10000:
             return False
         
-        # [cite_start]Condición 2: No más de 1 pago REGISTRADO con este método [cite: 43-44]
+        # Condición 2: No más de 1 pago REGISTRADO con este método
         registered_cc_payments = 0
         for p_data in all_payments.values():
             if (p_data[models.PAYMENT_METHOD] == models.CREDIT_CARD and
@@ -27,7 +27,7 @@ def validate_payment(payment: dict, all_payments: dict) -> bool:
         return True
 
     elif method == models.PAYPAL:
-        # [cite_start]Condición 1: Monto [cite: 47]
+        # Condición 1: Monto 
         if amount >= 5000:
             return False
         return True
