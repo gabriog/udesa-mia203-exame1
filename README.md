@@ -1,4 +1,4 @@
-# API de Gestión de Pagos (Examen Unidad 1)
+# Examen API de Gestión de Pagos
 
 Esta es la implementación de una API de pagos usando FastAPI, con CI/CD a través de GitHub Actions.
 
@@ -36,4 +36,14 @@ Esta es la implementación de una API de pagos usando FastAPI, con CI/CD a trav�
 Para correr la suite de tests automáticos:
 
 ```bash
-pytest
+python -m unittest test_app.py
+```
+
+
+## Decisiones de Diseño y Trade-offs
+
+Persistencia (JSON): Usamos el data.json que venia en el codigo de referencia. Es simple pero no es apto para producción ya que el problema es que no maneja concurrencia. Por ejemplo, si dos pagos con tarjeta se validan al mismo tiempo, ambos podrían aprobarse incorrectamente, ya que el archivo no tiene locks. La solución real sería usar una base de datos transaccional (como Postgres) para manejar esto. 
+
+API (Query vs. Body): Seguimos la consigna usando query parameters para enviar datos en los POST (como amount y payment_method). Lo estándar en API REST es mandar estos datos dentro de un JSON body, ya que es mas limpio y fácil de validar.
+
+Logica de Estados: El flujo de estados se implemento con chequeos simples dentro de cada endpoint. Si el flujo fuera mucho más complejo, habria que usar una libreria de maquina de estados para formalizar las transiciones.
