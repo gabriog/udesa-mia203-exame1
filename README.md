@@ -39,6 +39,9 @@ Para correr la suite de tests automáticos:
 python -m unittest test_app.py
 ```
 
+## Diagrama del proyecto
+
+![diagrama_examen.jpg](imagenes/diagrama_examen.jpg)
 
 ## Decisiones de Diseño y Trade-offs
 
@@ -47,3 +50,26 @@ Persistencia (JSON): Usamos el data.json que venia en el codigo de referencia. E
 API (Query vs. Body): Seguimos la consigna usando query parameters para enviar datos en los POST (como amount y payment_method). Lo estándar en API REST es mandar estos datos dentro de un JSON body, ya que es mas limpio y fácil de validar.
 
 Logica de Estados: El flujo de estados se implemento con chequeos simples dentro de cada endpoint. Si el flujo fuera mucho más complejo, habria que usar una libreria de maquina de estados para formalizar las transiciones.
+
+
+## Deploy a Render
+
+Podemos hacer el deploy sobre Render de dos maneras distintas:
+
+### Usando "Auto-Deploy" de Render
+
+Activamos el Auto-Deploy en Render y le indicas que observe la rama production.
+No se necesitaria el archivo cd.yml
+No se necesitaria el secret RENDER_DEPLOY_HOOK en GitHub.
+
+Cómo funciona: En cuanto GitHub le avisa a Render que hubo un push a production, Render automáticamente busca el código y hace el deploy.
+
+El ci.yml sigue siendo necesario porque eso es lo que te da la validacion antes de hacer el merge.   
+
+Desventaja: Se pierde algo de  control. El deploy se dispara apenas se hace el merge.
+
+### Usando el cd.yml con Deploy Hook
+
+Tiene control total sobre el pipeline de deploy. Por tema de simplicidad y tiempo, decidimos utilizar el auto deploy.
+
+
