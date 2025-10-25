@@ -21,7 +21,7 @@ def validate_payment(payment: dict, all_payments: dict) -> bool:
                 registered_cc_payments += 1
         
         # Si hay más de 1 (incluyendo el actual), falla.
-        if registered_cc_payments > 1:
+        if registered_cc_payments >= 1:
             return False
             
         return True
