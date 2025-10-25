@@ -4,7 +4,7 @@ Esta es la implementación de una API de pagos usando FastAPI, con CI/CD a trav�
 
 ## URL de la API
 
-**API de Producción:** `http://<TU_IP_O_DOMINIO>:8000/docs`
+**API de Producción:** `https://udesa-mia203-exame1.onrender.com/`
 
 ## Instrucciones de Ejecución
 
