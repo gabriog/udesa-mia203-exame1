@@ -39,6 +39,9 @@ Para correr la suite de tests automáticos:
 python -m unittest test_app.py
 ```
 
+## Diagrama del proyecto
+
+![diagrama_examen.jpg](imagenes/diagrama_examen.jpg)
 
 ## Decisiones de Diseño y Trade-offs
 
